@@ -43,16 +43,16 @@ public class MultiNeworks {
     }
 
 
-    public void ShowInter(Context context, Intent intent) {
+    public void ShowInter(Context context,Interstitial interstitial) {
          ;
 
         if (!InterType.isEmpty()&&  size> 1){
             adsManager = adsManager(InterType.toUpperCase());
-            adsManager.ShowInter(context,intent);
+            adsManager.ShowInter(context,interstitial);
             Log.e("Network",adsManager.getClass().getName().toString());
         }else {
         adsManager = Ads.Networks()[random()];
-        adsManager.ShowInter(context, intent);
+        adsManager.ShowInter(context, interstitial);
             Log.e("Network",adsManager.getClass().getName().toString());
         }
 

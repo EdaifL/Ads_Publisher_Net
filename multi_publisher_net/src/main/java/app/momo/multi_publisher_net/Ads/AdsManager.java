@@ -8,7 +8,7 @@ import android.widget.FrameLayout;
 public interface AdsManager {
      void init(Context context);
      void Showbanner(Context context,FrameLayout layout);
-     void ShowInter(Context context,Intent intent);
+     void ShowInter(Context context,Interstitial interstitial);
      void ShowNative(Context context,FrameLayout layout);
      void ShowReward(Context context , RewardedVideo rewarded);
 }

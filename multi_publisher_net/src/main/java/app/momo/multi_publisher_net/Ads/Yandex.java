@@ -111,7 +111,7 @@ public class Yandex implements AdsManager {
     }
 
     @Override
-    public void ShowInter(Context activity, Intent intent) {
+    public void ShowInter(Context activity, Interstitial interstitial) {
         dialog = new DialogLoad(activity);
         dialog.show();
         interstitialAd = new InterstitialAd(activity);
@@ -127,10 +127,11 @@ public class Yandex implements AdsManager {
             @Override
             public void onAdFailedToLoad(@NonNull AdRequestError adRequestError) {
 
-                activity.startActivity(intent);
+
                 if (dialog.isShowing()){
                     dialog.dismiss();
                 }
+                interstitial.isField();
             }
 
             @Override
@@ -140,10 +141,11 @@ public class Yandex implements AdsManager {
 
             @Override
             public void onAdDismissed() {
-                activity.startActivity(intent);
-                if (dialog.isShowing()){
+
+                if (dialog.isShowing()) {
                     dialog.dismiss();
                 }
+                interstitial.isShowed();
             }
 
             @Override

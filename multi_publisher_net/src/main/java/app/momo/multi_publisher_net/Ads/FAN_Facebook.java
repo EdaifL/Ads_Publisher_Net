@@ -104,7 +104,7 @@ public class FAN_Facebook implements AdsManager {
     }
 
     @Override
-    public void ShowInter(Context activity, Intent intent) {
+    public void ShowInter(Context activity,Interstitial interstitial) {
         dialog = new DialogLoad(activity);
         dialog.show();
         interstitialAd = new InterstitialAd(activity, InterUnitId);
@@ -120,7 +120,7 @@ public class FAN_Facebook implements AdsManager {
                         if (dialog.isShowing()){
                             dialog.dismiss();
                         }
-                        activity.startActivity(intent);
+                        interstitial.isShowed();
                     }
 
                     @Override
@@ -128,7 +128,7 @@ public class FAN_Facebook implements AdsManager {
                         if (dialog.isShowing()){
                             dialog.dismiss();
                         }
-                        activity.startActivity(intent);
+                       interstitial.isField();
                     }
 
                     @Override

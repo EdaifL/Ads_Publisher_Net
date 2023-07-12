@@ -182,7 +182,7 @@ public class ApplovinAd implements AdsManager {
 
 
     @Override
-    public void ShowInter(Context context,Intent intent) {
+    public void ShowInter(Context context,Interstitial interstitial) {
 
         if (!InterUnitId.isEmpty()){
 
@@ -202,7 +202,7 @@ public class ApplovinAd implements AdsManager {
                 public void onAdHidden(MaxAd ad) {
 
                     if (dialog.isShowing()){dialog.dismiss();}
-                    context.startActivity(intent);
+                  interstitial.isShowed();
                     if (adView != null){adView.destroy();}
                     if (interstitialAd !=null){interstitialAd.destroy();}
 
@@ -216,7 +216,7 @@ public class ApplovinAd implements AdsManager {
                 @Override
                 public void onAdLoadFailed(String adUnitId, MaxError error) {
                     if (dialog.isShowing()){dialog.dismiss();}
-                    context.startActivity(intent);
+                    interstitial.isField();
                     if (adView != null){adView = null;}
                     if (interstitialAd !=null){interstitialAd.destroy();}
                 }
@@ -224,14 +224,14 @@ public class ApplovinAd implements AdsManager {
                 @Override
                 public void onAdDisplayFailed(MaxAd ad, MaxError error) {
                     if (dialog.isShowing()){dialog.dismiss();}
-                    context.startActivity(intent);
+                    interstitial.isShowed();
                     if (adView != null){adView = null;}
                     if (interstitialAd !=null){interstitialAd.destroy();}
                 }
             });
             interstitialAd.loadAd();
         }else{
-            context.startActivity(intent);
+            interstitial.isShowed();
         }
 
     }

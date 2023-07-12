@@ -25,8 +25,8 @@ public class NullAds implements AdsManager {
     }
 
     @Override
-    public void ShowInter(Context context, Intent intent) {
-        context.startActivity(intent);
+    public void ShowInter(Context context, Interstitial interstitial) {
+        interstitial.isShowed();
     }
 
     @Override

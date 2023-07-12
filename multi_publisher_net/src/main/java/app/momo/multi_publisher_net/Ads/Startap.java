@@ -66,7 +66,7 @@ public class Startap implements AdsManager {
     }
     Dialog dialog;
     @Override
-    public void ShowInter(Context context, Intent intent) {
+    public void ShowInter(Context context,Interstitial interstitial) {
         dialog = new DialogLoad(context);
         dialog.show();
         StartAppAd startAppAd = new StartAppAd(context);
@@ -75,7 +75,7 @@ public class Startap implements AdsManager {
             @Override
             public void adHidden(Ad ad) {
                 if (dialog.isShowing()){dialog.dismiss();}
-                context.startActivity(intent);
+                interstitial.isShowed();
             }
 
             @Override
@@ -91,7 +91,7 @@ public class Startap implements AdsManager {
             @Override
             public void adNotDisplayed(Ad ad) {
                 if (dialog.isShowing()){dialog.dismiss();}
-                context.startActivity(intent);
+               interstitial.isField();
             }
         });
     }
