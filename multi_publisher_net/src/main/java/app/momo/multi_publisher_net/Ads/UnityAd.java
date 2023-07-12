@@ -114,7 +114,8 @@ public class UnityAd implements AdsManager {
                 UnityAds.show((Activity) activity, "Rewarded_Android", new UnityAdsShowOptions(), new IUnityAdsShowListener() {
                     @Override
                     public void onUnityAdsShowFailure(String placementId, UnityAds.UnityAdsShowError error, String message) {
-                      interstitial.isField();
+                        if (dialog.isShowing()){dialog.dismiss(); }
+                        interstitial.isField();
 
                     }
 
@@ -130,8 +131,9 @@ public class UnityAd implements AdsManager {
 
                     @Override
                     public void onUnityAdsShowComplete(String placementId, UnityAds.UnityAdsShowCompletionState state) {
-                      interstitial.isShowed();
+
                         if (dialog.isShowing()){dialog.dismiss(); }
+                        interstitial.isShowed();
 
                     }
                 });
@@ -139,8 +141,9 @@ public class UnityAd implements AdsManager {
 
             @Override
             public void onUnityAdsFailedToLoad(String s, UnityAds.UnityAdsLoadError unityAdsLoadError, String s1) {
-              interstitial.isField();
+
                 if (dialog.isShowing()){dialog.dismiss(); }
+                interstitial.isField();
             }
         });
 
