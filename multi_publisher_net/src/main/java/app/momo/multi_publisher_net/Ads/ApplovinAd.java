@@ -139,7 +139,7 @@ public class ApplovinAd implements AdsManager {
                 @Override
                 public void onAdLoaded(MaxAd ad) {
 
-
+                    layout.removeAllViews();
                 }
 
                 @Override

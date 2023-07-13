@@ -80,6 +80,7 @@ public class Yandex implements AdsManager {
             @Override
             public void onAdLoaded() {
                 Log.d(TAG, "onAdLoaded: ");
+                layout.removeAllViews();
             }
 
             @Override

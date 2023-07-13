@@ -72,6 +72,7 @@ public class FAN_Facebook implements AdsManager {
 
             @Override
             public void onAdLoaded(Ad ad) {
+                layout.removeAllViews();
                 NativeAdViewAttributes viewAttributes = new NativeAdViewAttributes(activity)
                         .setBackgroundColor(Color.WHITE)
                         .setTitleTextColor(Color.BLACK)

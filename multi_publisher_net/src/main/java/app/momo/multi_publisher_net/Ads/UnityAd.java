@@ -79,6 +79,7 @@ public class UnityAd implements AdsManager {
             public void onBannerLoaded(BannerView bannerAdView) {
                 super.onBannerLoaded(bannerAdView);
                 Log.d(TAG, "onBannerLoaded: " + bannerAdView.getPlacementId());
+                layout.removeAllViews();
             }
 
             @Override

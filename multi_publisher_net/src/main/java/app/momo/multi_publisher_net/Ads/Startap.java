@@ -62,6 +62,7 @@ public class Startap implements AdsManager {
         bannerParameters.addRule(RelativeLayout.CENTER_HORIZONTAL);
         bannerParameters.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
 // Add to main Layout
+        layout.removeAllViews();
         layout.addView(banner, bannerParameters);
     }
     Dialog dialog;
