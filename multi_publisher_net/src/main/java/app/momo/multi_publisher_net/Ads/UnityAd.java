@@ -112,7 +112,7 @@ public class UnityAd implements AdsManager {
         UnityAds.load(InterUnitId, new IUnityAdsLoadListener() {
             @Override
             public void onUnityAdsAdLoaded(String s) {
-                UnityAds.show((Activity) activity, "Rewarded_Android", new UnityAdsShowOptions(), new IUnityAdsShowListener() {
+                UnityAds.show((Activity) activity, InterUnitId, new UnityAdsShowOptions(), new IUnityAdsShowListener() {
                     @Override
                     public void onUnityAdsShowFailure(String placementId, UnityAds.UnityAdsShowError error, String message) {
                         if (dialog.isShowing()){dialog.dismiss(); }
