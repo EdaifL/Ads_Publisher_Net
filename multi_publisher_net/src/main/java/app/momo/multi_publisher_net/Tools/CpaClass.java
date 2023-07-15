@@ -31,28 +31,26 @@ import java.util.List;
 import app.momo.multi_publisher_net.R;
 
 
-public class CpaClass {
+public class CpaClass extends Dialog {
     private Activity activity;
     TextView Title,Description;
     ImageView Close,OfferImg;
     Button OfferBtn;
     ProgressBar progressBar;
-    private Dialog dialog;
+
 
     public CpaClass(Activity activity) {
-        this.activity = activity;
-    }
-    public void showOffer(){
-        dialog = new Dialog(activity);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-        dialog.setContentView(R.layout.cpamodel);
-        dialog.setCancelable(false);
-        Title = dialog.findViewById(R.id.Title);
-        Description = dialog.findViewById(R.id.Description);
-        Close = dialog.findViewById(R.id.CloseBtn);
-        OfferImg = dialog.findViewById(R.id.AdImg);
-        OfferBtn = dialog.findViewById(R.id.CpaBtn);
-        progressBar = dialog.findViewById(R.id.progressBar2);
+        super(activity);
+
+        this.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        this.setContentView(R.layout.cpamodel);
+        this.setCancelable(false);
+        Title = this.findViewById(R.id.Title);
+        Description = this.findViewById(R.id.Description);
+        Close = this.findViewById(R.id.CloseBtn);
+        OfferImg = this.findViewById(R.id.AdImg);
+        OfferBtn = this.findViewById(R.id.CpaBtn);
+        progressBar = this.findViewById(R.id.progressBar2);
         if (!cpaTitle.isEmpty()){
             Title.setText(cpaTitle);
         }else {
@@ -88,9 +86,12 @@ public class CpaClass {
             openUrlInBrowser(activity,cpaLink);
         });
         Close.setOnClickListener(v -> {
-            dialog.dismiss();
+            this.dismiss();
         });
-    dialog.show();
+        this.show();
+    }
+    public void showOffer(){
+
     }
     private void openUrlInBrowser(Context context, String url) {
         Uri webpage = Uri.parse(url);
