@@ -50,6 +50,7 @@ dependencies {
     implementation 'com.github.Unity-Technologies:unity-ads-android:4.4.1'
     implementation 'com.github.bumptech.glide:glide:4.14.2'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.14.2'
+    implementation 'com.onesignal:OneSignal:4.8.6'
 }
 afterEvaluate {
     publishing {

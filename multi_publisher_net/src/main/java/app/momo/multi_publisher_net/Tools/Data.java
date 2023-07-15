@@ -9,6 +9,7 @@ public class Data {
     public static boolean IsStartAppOn;
     public static boolean IsYandexOn;
     public static String OfficialAppLink;
+    public static String OneSignalKey;
     public static boolean isAppOn;
     public static boolean isUnderMant;
     public static String InterType = "";

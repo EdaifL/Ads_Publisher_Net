@@ -12,6 +12,7 @@ import androidx.appcompat.app.AlertDialog;
 import com.android.volley.Request;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.onesignal.OneSignal;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -29,73 +30,91 @@ public class Ads {
     public Ads(Context context,String url , onLoadData loadData) {
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET,url,null,response -> {
             /////////////////////////AdsType////////////////////////////////
+
             JSONObject Type = response.optJSONObject("UnitType");
             if (Type != null){
-            BannerType = Type.optString("BannerType");
-            InterType = Type.optString("InterType");
-            NativeType  = Type.optString("NativeType");
-            RewardType = Type.optString("rewardType");}
+                BannerType = Type.optString("BannerType");
+                InterType = Type.optString("InterType");
+                NativeType  = Type.optString("NativeType");
+                RewardType = Type.optString("rewardType");
+            }
             ////////////////////Facebook////////////////////////////////////
             JSONObject facebook = response.optJSONObject("Facebook");
-            IsFanOn = facebook.optBoolean("IsOn");
-            FAN_Facebook.BannerUnitId = facebook.optString("Banner");
-            FAN_Facebook.InterUnitId = facebook.optString("Inter");
-            FAN_Facebook.NativeUnitId = facebook.optString("Native");
-            FAN_Facebook.rewardedUnitId = facebook.optString("Reward");
-
+            if (facebook != null) {
+                IsFanOn = facebook.optBoolean("IsOn",false);
+                FAN_Facebook.BannerUnitId = facebook.optString("Banner");
+                FAN_Facebook.InterUnitId = facebook.optString("Inter");
+                FAN_Facebook.NativeUnitId = facebook.optString("Native");
+                FAN_Facebook.rewardedUnitId = facebook.optString("Reward");
+            }
             ////////////////////////Applovin///////////////////////////////
             JSONObject Applovin = response.optJSONObject("Applovin");
-            IsApplovinOn = Applovin.optBoolean("IsOn");
-            ApplovinAd.OpenAppUnitId = Applovin.optString("OpenApp");
-            ApplovinAd.BannerUnitId = Applovin.optString("Banner");
-            ApplovinAd.InterUnitId = Applovin.optString("Inter");
-            ApplovinAd.NativeUnitId = Applovin.optString("Native");
-            ApplovinAd.rewardedUnitId = Applovin.optString("Reward");
-
+            if (Applovin != null) {
+                IsApplovinOn = Applovin.optBoolean("IsOn",false);
+                ApplovinAd.OpenAppUnitId = Applovin.optString("OpenApp");
+                ApplovinAd.BannerUnitId = Applovin.optString("Banner");
+                ApplovinAd.InterUnitId = Applovin.optString("Inter");
+                ApplovinAd.NativeUnitId = Applovin.optString("Native");
+                ApplovinAd.rewardedUnitId = Applovin.optString("Reward");
+            }
             //////////////////////////Yandex////////////////////////////
             JSONObject yandex = response.optJSONObject("yandex");
-            IsYandexOn = yandex.optBoolean("IsOn");
-            Yandex.BannerUnitId = yandex.optString("Banner");
-            Yandex.InterUnitId = yandex.optString("Inter");
-            Yandex.NativeUnitId = yandex.optString("Native");
-            Yandex.rewardedUnitId = yandex.optString("Reward");
-
+            if (yandex != null) {
+                IsYandexOn = yandex.optBoolean("IsOn",false);
+                Yandex.BannerUnitId = yandex.optString("Banner");
+                Yandex.InterUnitId = yandex.optString("Inter");
+                Yandex.NativeUnitId = yandex.optString("Native");
+                Yandex.rewardedUnitId = yandex.optString("Reward");
+            }
             //////////////////////////Unity////////////////////////////
             JSONObject unity  =  response.optJSONObject("Unity");
-            IsUnityOn =unity.optBoolean("IsOn");
-            UnityAd.AppId = unity.optString("AppId");
-            UnityAd.BannerUnitId = unity.optString("Banner");
-            UnityAd.InterUnitId =unity.optString("Inter");
-            UnityAd.rewardedUnitId = unity.optString("Reward");
-
+            if (unity != null) {
+                IsUnityOn = unity.optBoolean("IsOn",false);
+                UnityAd.AppId = unity.optString("AppId");
+                UnityAd.BannerUnitId = unity.optString("Banner");
+                UnityAd.InterUnitId = unity.optString("Inter");
+                UnityAd.rewardedUnitId = unity.optString("Reward");
+            }
             /////////////////////StartApp////////////////
             JSONObject startApp = response.optJSONObject("StartApp");
-            IsStartAppOn = startApp.optBoolean("IsOn");
-            Startap.AppId = startApp.optString("AppId");
-
+            if (startApp != null) {
+                IsStartAppOn = startApp.optBoolean("IsOn",false);
+                Startap.AppId = startApp.optString("AppId");
+            }
             ////////////////////////////////////////////////////
 
-            OfficialAppLink = response.optString("NewAppLink");
-            isAppOn = response.optBoolean("IsAppOn");
-            isUnderMant = response.optBoolean("IsUnderMaintenance");
+            String AppLink = response.optString("NewAppLink");
+            if (AppLink != null && !AppLink.isEmpty()){OfficialAppLink = AppLink;}
+            isAppOn = response.optBoolean("IsAppOn",true);
 
+            isUnderMant = response.optBoolean("IsUnderMaintenance",false);
+            String signal = response.optString("OneSignalKey");
+            if (signal != null && !signal.isEmpty()){
+                OneSignalKey = signal;
+            }
+            OneSignal.setLogLevel(OneSignal.LOG_LEVEL.VERBOSE, OneSignal.LOG_LEVEL.NONE);
+            OneSignal.initWithContext(context);
+            OneSignal.setAppId(OneSignalKey);
+            OneSignal.promptForPushNotifications();
             ///////////////////////////////////////////////////////
 
             JSONObject Cpa = response.optJSONObject("Cpa");
-            IsCpaOn = Cpa.optBoolean("IsOn");
-            cpaLink = Cpa.optString("Link");
-            cpaTitle = Cpa.optString("Title");
-            cpaDescription = Cpa.optString("ShortDescription");
-            cpaImgLink = Cpa.optString("ImgLink");
-            cpaBtnText = Cpa.optString("BtnText");
-
+            if (Cpa != null) {
+                IsCpaOn = Cpa.optBoolean("IsOn");
+                cpaLink = Cpa.optString("Link");
+                cpaTitle = Cpa.optString("Title");
+                cpaDescription = Cpa.optString("ShortDescription");
+                cpaImgLink = Cpa.optString("ImgLink");
+                cpaBtnText = Cpa.optString("BtnText");
+            }
             ///////////////////////////////////////////////////////
             JSONArray tips = response.optJSONArray("Guides");
-            for (int i = 0; i < tips.length() ; i++) {
-                Guide guide = new Guide(tips.optJSONObject(i).optString("Title"),tips.optJSONObject(i).optString("Description"),tips.optJSONObject(i).optString("Img"));
-                guides.add(guide);
+            if (tips != null) {
+                for (int i = 0; i < tips.length(); i++) {
+                    Guide guide = new Guide(tips.optJSONObject(i).optString("Title"), tips.optJSONObject(i).optString("Description"), tips.optJSONObject(i).optString("Img"));
+                    guides.add(guide);
+                }
             }
-
 
             adsManager = MultiNeworks.getInstance();
             if (!isAppOn){
