@@ -85,9 +85,9 @@ public class Ads {
 
             String AppLink = response.optString("NewAppLink");
             if (AppLink != null && !AppLink.isEmpty()){OfficialAppLink = AppLink;}
-            isAppOn = response.optBoolean("IsAppOn",true);
+            isAppOn = response.optBoolean("IsAppOn");
 
-            isUnderMant = response.optBoolean("IsUnderMaintenance",false);
+            isUnderMant = response.optBoolean("IsUnderMaintenance");
             String signal = response.optString("OneSignalKey");
             if (signal != null && !signal.isEmpty()){
                 OneSignalKey = signal;
