@@ -90,7 +90,7 @@ public class CpaAsNative {
                 initialize();
             }
             private void initialize() {
-                inflate(getContext(), R.layout.cpamodel, this);
+                inflate(getContext(), R.layout.cpa_native, this);
                 titleTextView = findViewById(R.id.Title);
                 descriptionTextView = findViewById(R.id.Description);
                 imageView = findViewById(R.id.AdImg);
