@@ -2,8 +2,9 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="320dp"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    app:cardBackgroundColor="@color/white"
     app:cardCornerRadius="10dp"
     app:cardElevation="10dp"
     app:cardMaxElevation="10dp">
@@ -18,6 +19,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="Title"
+            android:textColor="#1E1E1E"
             android:textSize="20sp"
             app:layout_constraintEnd_toStartOf="@+id/CloseBtn"
             app:layout_constraintStart_toStartOf="parent"
@@ -46,7 +48,8 @@
                 android:id="@+id/Description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text=",bsdkglnsgcxhomsdhg;n,xbkmslkjdfgnsdkgsmldgsnfdgmksfdghfdsmlnhmlkfdgholsjdghsdgksdjhgflkjsdgkfsdjkfglsdyfhiosdfhfsklih" />
+                android:text=",bsdkglnsgcxhomsdhg;n,xbkmslkjdfgnsdkgsmldgsnfdgmksfdghfdsmlnhmlkfdgholsjdghsdgksdjhgflkjsdgkfsdjkfglsdyfhiosdfhfsklih"
+                android:textColor="#1E1E1E" />
         </ScrollView>
 
         <LinearLayout
@@ -79,10 +82,11 @@
             </FrameLayout>
 
             <Button
-                android:id="@+id/CpaBtn"
+                android:id="@+id/button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Button" />
+
 
         </LinearLayout>
 
