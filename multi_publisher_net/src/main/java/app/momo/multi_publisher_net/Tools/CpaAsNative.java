@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.util.AttributeSet;
@@ -31,17 +32,24 @@ public class CpaAsNative {
     public void Load(Context context, LoadData load){
         CpaNative cpaNative = new CpaNative(context);
         Glide.with(context)
-                .load(cpaNative.imageView)
-                .into(new CustomTarget<Drawable>() {
+                .asBitmap()
+                .load(Data.cpaImgLink)
+                .into(new CustomTarget<Bitmap>() {
                     @Override
-                    public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
-                       cpaNative.progressBar.setVisibility(View.GONE);
-                       cpaNative.imageView.setImageDrawable(resource);
+                    public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                        cpaNative.progressBar.setVisibility(View.GONE);
+                        cpaNative.imageView.setImageBitmap(resource);
+                        load.load(cpaNative);
+                    }
+
+                    @Override
+                    public void onLoadFailed(@Nullable Drawable errorDrawable) {
+
                     }
 
                     @Override
                     public void onLoadCleared(@Nullable Drawable placeholder) {
-
+                        // Image loading cleared, you can handle this if needed
                     }
                 });
         cpaNative.setTitle(Data.cpaTitle);
@@ -53,7 +61,7 @@ public class CpaAsNative {
         cpaNative.imageView.setOnClickListener(v -> {
             openUrlInBrowser(context,Data.cpaLink);
         });
-        load.load(cpaNative);
+
 
     }
 
