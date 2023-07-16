@@ -38,6 +38,7 @@ public class CpaAsNative {
                     @Override
                     public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
                         cpaNative.progressBar.setVisibility(View.GONE);
+                        cpaNative.Close.setVisibility(View.INVISIBLE);
                         cpaNative.imageView.setImageBitmap(resource);
                         load.load(cpaNative);
                     }
@@ -69,6 +70,7 @@ public class CpaAsNative {
             private TextView titleTextView;
             private TextView descriptionTextView;
             private ImageView imageView;
+            private ImageView Close;
             private ProgressBar progressBar;
             private Button button;
     public CpaNative(@NonNull Context context) {
@@ -94,6 +96,7 @@ public class CpaAsNative {
                 imageView = findViewById(R.id.AdImg);
                 button = findViewById(R.id.CpaBtn);
                 progressBar = findViewById(R.id.progressBar2);
+                Close = findViewById(R.id.CloseBtn);
             }
 
             public void setTitle(String title) {
