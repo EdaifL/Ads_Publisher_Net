@@ -7,8 +7,10 @@ import android.content.pm.ResolveInfo;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.util.AttributeSet;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -33,7 +35,8 @@ public class CpaAsNative {
                 .into(new CustomTarget<Drawable>() {
                     @Override
                     public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
-                        load.load(cpaNative);
+                       cpaNative.progressBar.setVisibility(View.GONE);
+                       cpaNative.imageView.setImageDrawable(resource);
                     }
 
                     @Override
@@ -41,16 +44,16 @@ public class CpaAsNative {
 
                     }
                 });
-        cpaNative.titleTextView.setText(Data.cpaTitle);
-        cpaNative.descriptionTextView.setText(Data.cpaDescription);
-        cpaNative.button.setText(Data.cpaBtnText);
+        cpaNative.setTitle(Data.cpaTitle);
+        cpaNative.setDescription(Data.cpaDescription);
+        cpaNative.setButtonText(Data.cpaBtnText);
         cpaNative.button.setOnClickListener(v -> {
             openUrlInBrowser(context,Data.cpaLink);
         });
         cpaNative.imageView.setOnClickListener(v -> {
             openUrlInBrowser(context,Data.cpaLink);
         });
-
+        load.load(cpaNative);
 
     }
 
@@ -58,6 +61,7 @@ public class CpaAsNative {
             private TextView titleTextView;
             private TextView descriptionTextView;
             private ImageView imageView;
+            private ProgressBar progressBar;
             private Button button;
     public CpaNative(@NonNull Context context) {
                 super(context);
@@ -81,6 +85,7 @@ public class CpaAsNative {
                 descriptionTextView = findViewById(R.id.Description);
                 imageView = findViewById(R.id.AdImg);
                 button = findViewById(R.id.CpaBtn);
+                progressBar = findViewById(R.id.progressBar2);
             }
 
             public void setTitle(String title) {
