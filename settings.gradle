@@ -17,3 +17,4 @@ dependencyResolutionManagement {
 }
 rootProject.name = "Ads"
 include ':app'
+include ':multi_publisher_net'
