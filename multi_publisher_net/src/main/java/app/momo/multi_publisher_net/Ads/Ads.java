@@ -9,7 +9,13 @@ import android.content.Intent;
 
 import androidx.appcompat.app.AlertDialog;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkError;
+import com.android.volley.NoConnectionError;
+import com.android.volley.ParseError;
 import com.android.volley.Request;
+import com.android.volley.ServerError;
+import com.android.volley.TimeoutError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.onesignal.OneSignal;
@@ -130,8 +136,21 @@ public class Ads {
             }}
         }
         ,error -> {
-            String s =error.getMessage();
-            loadData.fieldToLoad(s);
+            String message = null;
+            if (error instanceof NetworkError) {
+                message = "Cannot connect to Internet...Please check your connection!";
+            } else if (error instanceof ServerError) {
+                message = "The server could not be found. Please try again after some time!!";
+            } else if (error instanceof AuthFailureError) {
+                message = "Cannot connect to Internet...Please check your connection!";
+            } else if (error instanceof ParseError) {
+                message = "Parsing error! Please try again after some time!!";
+            } else if (error instanceof NoConnectionError) {
+                message = "Cannot connect to Internet...Please check your connection!";
+            } else if (error instanceof TimeoutError) {
+                message = "Connection TimeOut! Please check your internet connection.";
+            }
+            loadData.fieldToLoad(message);
 
         });
         Volley.newRequestQueue(context).add(request);
