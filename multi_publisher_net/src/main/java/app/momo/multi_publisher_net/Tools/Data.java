@@ -18,11 +18,8 @@ public class Data {
     public static String NativeType ="";
     public static ArrayList<Guide> guides = new ArrayList<>();
     //////cpa///////
-    public static boolean IsCpaOn;
-    public static String cpaLink;
-    public static String cpaTitle;
-    public static String cpaDescription;
-    public static String cpaBtnText;
-    public static String cpaImgLink;
-
+    public static boolean IsPopupCpaOn;
+    public static boolean IsnativeCpaOn;
+    public static ArrayList<CpaModel> CpaPopUp = new ArrayList<>();
+    public static ArrayList<CpaModel> CpaNative = new ArrayList<>();
 }

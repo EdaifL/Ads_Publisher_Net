@@ -28,12 +28,19 @@ import app.momo.multi_publisher_net.R;
 
 public class CpaAsNative {
 
-
+    private static int idShowed = 0 ;
     public void Load(Context context, LoadData load){
+
+        CpaModel cpaModel = Data.CpaNative.get(idShowed);
+        if (idShowed+1 == Data.CpaNative.size()){
+            idShowed = 0;
+        }else {
+            idShowed +=1;
+        }
         CpaNative cpaNative = new CpaNative(context);
         Glide.with(context)
                 .asBitmap()
-                .load(Data.cpaImgLink)
+                .load(cpaModel.getCpaImgLink())
                 .into(new CustomTarget<Bitmap>() {
                     @Override
                     public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
@@ -53,16 +60,15 @@ public class CpaAsNative {
                         // Image loading cleared, you can handle this if needed
                     }
                 });
-        cpaNative.setTitle(Data.cpaTitle);
-        cpaNative.setDescription(Data.cpaDescription);
-        cpaNative.setButtonText(Data.cpaBtnText);
+        cpaNative.setTitle(cpaModel.getCpaTitle());
+        cpaNative.setDescription(cpaModel.getCpaDescription());
+        cpaNative.setButtonText(cpaModel.getCpaBtnText());
         cpaNative.button.setOnClickListener(v -> {
-            openUrlInBrowser(context,Data.cpaLink);
+            openUrlInBrowser(context,cpaModel.getCpaLink());
         });
         cpaNative.imageView.setOnClickListener(v -> {
-            openUrlInBrowser(context,Data.cpaLink);
+            openUrlInBrowser(context,cpaModel.getCpaLink());
         });
-
 
     }
 

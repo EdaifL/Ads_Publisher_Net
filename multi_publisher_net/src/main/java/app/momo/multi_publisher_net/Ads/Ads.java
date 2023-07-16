@@ -26,6 +26,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import app.momo.multi_publisher_net.Tools.CpaModel;
 import app.momo.multi_publisher_net.Tools.Data;
 import app.momo.multi_publisher_net.Tools.Guide;
 
@@ -106,12 +107,17 @@ public class Ads {
 
             JSONObject Cpa = response.optJSONObject("Cpa");
             if (Cpa != null) {
-                IsCpaOn = Cpa.optBoolean("IsOn");
-                cpaLink = Cpa.optString("Link");
-                cpaTitle = Cpa.optString("Title");
-                cpaDescription = Cpa.optString("ShortDescription");
-                cpaImgLink = Cpa.optString("ImgLink");
-                cpaBtnText = Cpa.optString("BtnText");
+                IsPopupCpaOn = Cpa.optBoolean("IsPopOn");
+                IsnativeCpaOn = Cpa.optBoolean("IsNativeOn");
+                JSONArray popArray = Cpa.optJSONArray("Popup");
+                JSONArray Native = Cpa.optJSONArray("Native");
+                if (popArray != null){
+                    CpaPopUp.addAll(Cpa_Popup_Offers(popArray));
+                }
+                if (Native != null){
+                    CpaNative.addAll(Cpa_Native_Offers(Native));
+                }
+
             }
             ///////////////////////////////////////////////////////
             JSONArray tips = response.optJSONArray("Guides");
@@ -195,5 +201,31 @@ public class Ads {
         void isUnderReview();
         void isAppGone();
         void  fieldToLoad(String ErrorMessage);
+    }
+    private ArrayList<CpaModel> Cpa_Popup_Offers(JSONArray jsonArray){
+        ArrayList<CpaModel> cpaModels = new ArrayList<>();
+        for (int i = 0; i < jsonArray.length(); i++) {
+            JSONObject offer = jsonArray.optJSONObject(i);
+            String cpaLink = offer.optString("Link");
+            String  cpaTitle = offer.optString("Title");
+            String   cpaDescription = offer.optString("ShortDescription");
+            String   cpaImgLink = offer.optString("ImgLink");
+            String  cpaBtnText = offer.optString("BtnText");
+            cpaModels.add(new CpaModel( cpaLink,  cpaTitle,  cpaDescription,  cpaBtnText,  cpaImgLink));
+        }
+        return cpaModels;
+    }
+    private ArrayList<CpaModel> Cpa_Native_Offers(JSONArray jsonArray){
+        ArrayList<CpaModel> cpaModels = new ArrayList<>();
+        for (int i = 0; i < jsonArray.length(); i++) {
+            JSONObject offer = jsonArray.optJSONObject(i);
+            String cpaLink = offer.optString("Link");
+            String  cpaTitle = offer.optString("Title");
+            String   cpaDescription = offer.optString("ShortDescription");
+            String   cpaImgLink = offer.optString("ImgLink");
+            String  cpaBtnText = offer.optString("BtnText");
+            cpaModels.add(new CpaModel( cpaLink,  cpaTitle,  cpaDescription,  cpaBtnText,  cpaImgLink));
+        }
+        return cpaModels;
     }
 }

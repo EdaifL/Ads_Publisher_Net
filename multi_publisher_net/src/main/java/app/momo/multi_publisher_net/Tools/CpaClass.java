@@ -38,7 +38,7 @@ public class CpaClass extends Dialog {
     Button OfferBtn;
     ProgressBar progressBar;
 
-
+    private static int idShowed = 0;
     public CpaClass(Activity activity) {
         super(activity);
 
@@ -51,21 +51,28 @@ public class CpaClass extends Dialog {
         OfferImg = this.findViewById(R.id.AdImg);
         OfferBtn = this.findViewById(R.id.CpaBtn);
         progressBar = this.findViewById(R.id.progressBar2);
-        if (!cpaTitle.isEmpty()){
-            Title.setText(cpaTitle);
+        CpaModel cpaModel = CpaPopUp.get(idShowed);
+        if (idShowed +1 == CpaPopUp.size()){
+            idShowed = 0 ;
+        }else {
+            idShowed +=1;
+        }
+
+        if (!cpaModel.getCpaTitle().isEmpty()){
+            Title.setText(cpaModel.getCpaTitle());
         }else {
             Title.setVisibility(View.INVISIBLE);
         }
-        if (!cpaDescription.isEmpty()){
-            Description.setText(cpaDescription);
+        if (!cpaModel.getCpaDescription().isEmpty()){
+            Description.setText(cpaModel.getCpaDescription());
         }else{
             Description.setVisibility(View.GONE);
         }
-        if (!cpaBtnText.isEmpty()){
-            OfferBtn.setText(cpaBtnText);
+        if (!cpaModel.getCpaBtnText().isEmpty()){
+            OfferBtn.setText(cpaModel.getCpaBtnText());
         }
-        if (!cpaImgLink.isEmpty()){
-            Glide.with(activity).load(cpaImgLink).addListener(new RequestListener<Drawable>() {
+        if (!cpaModel.getCpaImgLink().isEmpty()){
+            Glide.with(activity).load(cpaModel.getCpaImgLink()).addListener(new RequestListener<Drawable>() {
                 @Override
                 public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
                     progressBar.setVisibility(View.GONE);
@@ -83,7 +90,7 @@ public class CpaClass extends Dialog {
 
         }
         OfferBtn.setOnClickListener(v -> {
-            openUrlInBrowser(activity,cpaLink);
+            openUrlInBrowser(activity, cpaModel.getCpaLink());
         });
         Close.setOnClickListener(v -> {
             this.dismiss();
